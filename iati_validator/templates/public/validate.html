@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% set active_page = "validate" -%}
+
+{% block content %}
+<div class="jumbotron">
+  <div class="container">
+
+    <h1 class="display-3">IATI Validator</h1>
+
+    {% set valid_xml = dataset.validate_xml() %}
+    <div class="alert alert-{% if valid_xml %}success{% else %}danger{% endif %}">
+      {% if valid_xml %}
+        XML is valid
+      {% else %}
+        XML is invalid
+      {% endif %}
+    </div><!-- end .alert -->
+    {% if not valid_xml %}
+        {{valid_xml.error_log}}
+    {% endif %}
+
+    {% set valid_iati = dataset.validate_iati() %}
+    <div class="alert alert-{% if valid_iati %}success{% else %}danger{% endif %}">
+      {% if valid_iati %}
+        Valid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
+      {% else %}
+        {% if dataset.schema %}
+            Invalid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
+        {% else %}
+            Invalid against any IATI schema
+        {% endif %}
+      {% endif %}
+    </div><!-- end .alert -->
+    {% if not valid_iati %}
+        {{valid_iati.error_log}}
+    {% endif %}
+
+    {% set valid_codelists = dataset.validate_codelists() %}
+    <div class="alert alert-{% if valid_codelists %}success{% else %}danger{% endif %}">
+      {% if valid_codelists %}
+        No invalid codelist values found
+      {% else %}
+        Invalid codelist values used
+      {% endif %}
+    </div><!-- end .alert -->
+    {% if not valid_codelists %}
+        {{valid_codelists.error_log}}
+    {% endif %}
+  </div>
+</div><!-- /.jumbotron -->
+{% endblock %}

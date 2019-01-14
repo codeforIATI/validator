@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "postdeploy": "npm run build"
+  },
+  "env": {
+    "FLASK_ENV": {
+      "value": "production"
+    },
+    "FLASK_DEBUG": {
+      "value": "0"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.6"
+      }
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
