@@ -26,11 +26,11 @@
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                 <div class="input-group">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="id_original_file" aria-describedby="id_original_file">
+                    <input type="file" class="custom-file-input" id="id_original_file" name="original_file" aria-describedby="original_file">
                     <label class="custom-file-label" for="id_original_file">Upload a file (.xml)</label>
                   </div>
                   <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </div>
             </form>
