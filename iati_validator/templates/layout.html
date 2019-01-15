@@ -27,7 +27,7 @@
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
 {% with form=form  %}
-{% include "nav.html" %}
+{% include "_nav.html" %}
 {% endwith %}
 
 <header>{% block header %}{% endblock %}</header>
@@ -52,7 +52,7 @@
 </main>
 
 
-{% include "footer.html" %}
+{% include "_footer.html" %}
 
 <!-- JavaScript at the bottom for fast page loading -->
 {{ javascript_tag('main_js') | safe }}

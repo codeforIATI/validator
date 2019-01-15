@@ -3,62 +3,89 @@
 {% set active_page = "validate" -%}
 
 {% block content %}
-<div class="jumbotron">
   <div class="container">
 
     <h1 class="display-3">IATI Validator</h1>
 
     {% set valid_xml = dataset.validate_xml() %}
-    <div class="alert alert-{% if valid_xml %}success{% else %}danger{% endif %}">
-      {% if valid_xml %}
-        XML is valid
-      {% else %}
-        XML is invalid
-      {% endif %}
-    </div><!-- end .alert -->
-    {% if not valid_xml %}
-        {{ valid_xml.error_log[:10] }}
-    {% endif %}
+    <div class="alert {% if valid_xml %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+      <h4 class="alert-heading" id="headingOne">
+        {% if valid_xml %}
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> XML is valid
+        {% else %}
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> XML is invalid
+        {% endif %}
+        <button type="button" class="close" data-toggle="collapse" data-target="#collapseOne" aria-label="Close">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </h4>
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+        {% with valid=valid_xml %}
+          {% include "_show_error_log.html" %}
+        {% endwith %}
+      </div>
+    </div>
 
     {% set valid_iati = dataset.validate_iati() %}
-    <div class="alert alert-{% if valid_iati %}success{% else %}danger{% endif %}">
-      {% if valid_iati %}
-        Valid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
-      {% else %}
-        {% if dataset.schema %}
-            Invalid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
+    <div class="alert {% if valid_iati %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+      <h4 class="alert-heading" id="headingTwo">
+        {% if valid_iati %}
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> Valid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
         {% else %}
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          {% if dataset.schema %}
+            Invalid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
+          {% else %}
             Invalid against any IATI schema
+          {% endif %}
         {% endif %}
-      {% endif %}
-    </div><!-- end .alert -->
-    {% if not valid_iati %}
-        {{ valid_iati.error_log[:10] }}
-    {% endif %}
+        <button type="button" class="close" data-toggle="collapse" data-target="#collapseTwo" aria-label="Close">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </h4>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+        {% with valid=valid_iati %}
+          {% include "_show_error_log.html" %}
+        {% endwith %}
+      </div>
+    </div>
 
     {% set valid_codelists = dataset.validate_codelists() %}
-    <div class="alert alert-{% if valid_codelists %}success{% else %}danger{% endif %}">
-      {% if valid_codelists %}
-        No invalid codelist values found
-      {% else %}
-        Invalid codelist values used
-      {% endif %}
-    </div><!-- end .alert -->
-    {% if not valid_codelists %}
-        {{ valid_codelists.error_log[:10] }}
-    {% endif %}
+    <div class="alert {% if valid_codelists %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+      <h4 class="alert-heading" id="headingThree">
+        {% if valid_codelists %}
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> No invalid codelist values found
+        {% else %}
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Invalid codelist values used
+        {% endif %}
+        <button type="button" class="close" data-toggle="collapse" data-target="#collapseThree" aria-label="Close">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </h4>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+        {% with valid=valid_codelists %}
+          {% include "_show_error_log.html" %}
+        {% endwith %}
+      </div>
+    </div>
 
     {% set unique_ids = dataset.validate_unique_ids() %}
-    <div class="alert alert-{% if unique_ids %}success{% else %}danger{% endif %}">
-      {% if unique_ids %}
-        No duplicate IDs found within this dataset
-      {% else %}
-        Duplicate IDs found within this dataset
-      {% endif %}
-    </div><!-- end .alert -->
-    {% if not unique_ids %}
-        {{ unique_ids.error_log[:10] }}
-    {% endif %}
+    <div class="alert {% if unique_ids %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+      <h4 class="alert-heading" id="headingFour">
+        {% if unique_ids %}
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> No duplicate activity IDs found within this dataset
+        {% else %}
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Duplicate activity IDs found within this dataset
+        {% endif %}
+        <button type="button" class="close" data-toggle="collapse" data-target="#collapseFour" aria-label="Close">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </h4>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
+        {% with valid=unique_ids %}
+          {% include "_show_error_log.html" %}
+        {% endwith %}
+      </div>
+    </div>
   </div>
-</div><!-- /.jumbotron -->
 {% endblock %}

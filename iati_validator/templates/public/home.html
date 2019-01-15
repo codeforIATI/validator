@@ -4,108 +4,86 @@
 
 {% block content %}
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-  <div class="container">
+<div class="container">
 
-    <h1 class="display-3">IATI Validator</h1>
+  <h1 class="display-3">IATI Validator</h1>
 
 
-    <div id="accordion">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <i class="fa fa-upload" aria-hidden="true"></i> Upload
-            </button>
-          </h5>
-        </div>
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fa fa-upload" aria-hidden="true"></i> Upload
+          </button>
+        </h5>
+      </div>
 
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-          <div class="card-body">
-            <form action="{{ url_for('public.upload') }}" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                <div class="input-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="id_original_file" name="original_file" aria-describedby="original_file">
-                    <label class="custom-file-label" for="id_original_file">Upload a file (.xml)</label>
-                  </div>
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <form action="{{ url_for('public.upload') }}" method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="id_original_file" name="original_file" aria-describedby="original_file">
+                  <label class="custom-file-label" for="id_original_file">Upload a file (.xml)</label>
                 </div>
-            </form>
-          </div>
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+          </form>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <i class="fa fa-link" aria-hidden="true"></i> Link
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-          <div class="card-body">
-            <form action="{{ url_for('public.upload') }}" id="fetchURL" method="POST">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                <div class="form-group">
-                  <label class="control-label" for="id_source_url">Supply a URL (XML only)</label>
-                  <input class="form-control" id="id_source_url" maxlength="2000" name="source_url" placeholder="Supply a URL (XML only)" required="required" title="" type="url" />
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-            </form>
-          </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <i class="fa fa-link" aria-hidden="true"></i> Link
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <form action="{{ url_for('public.upload') }}" id="fetchURL" method="POST">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <div class="form-group">
+                <label class="control-label" for="id_source_url">Supply a URL (XML only)</label>
+                <input class="form-control" id="id_source_url" maxlength="2000" name="source_url" placeholder="Supply a URL (XML only)" required="required" title="" type="url" />
+              </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">
+                      Submit
+                  </button>
+              </div>
+          </form>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              <i class="fa fa-clipboard" aria-hidden="true"></i> Paste
-            </button>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-          <div class="card-body">
-            <form action="{{ url_for('public.upload') }}" method="POST">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                <div class="form-group"><label class="control-label" for="id_paste">Paste (XML only)</label><textarea class="form-control" cols="40" id="id_paste" name="paste" placeholder="Paste (XML only)" required="required" rows="10" title=""></textarea></div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-            </form>
-          </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <i class="fa fa-clipboard" aria-hidden="true"></i> Paste
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          <form action="{{ url_for('public.upload') }}" method="POST">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              <div class="form-group"><label class="control-label" for="id_paste">Paste (XML only)</label><textarea class="form-control" cols="40" id="id_paste" name="paste" placeholder="Paste (XML only)" required="required" rows="10" title=""></textarea></div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">
+                      Submit
+                  </button>
+              </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</div><!-- /.jumbotron -->
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4">
-      <h2><i class="fa fa-code"></i> Bootstrap 4</h2>
-      <p>Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</p>
-      <p><a class="btn btn-outline-secondary" href="http://getbootstrap.com/">Official website &raquo;</a></p>
-    </div>
-    <div class="col-lg-4">
-      <h2><i class="fa fa-flask"></i> SQLAlchemy</h2>
-      <p>SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.</p>
-      <p><a href="http://www.sqlalchemy.org/" class="btn btn-outline-secondary">Official website &raquo;</a></p>
-   </div>
-    <div class="col-lg-4">
-      <h2><i class="fa fa-edit"></i> WTForms</h2>
-      <p>WTForms is a flexible forms validation and rendering library for python web development.</p>
-      <p><a href="http://wtforms.simplecodes.com/" class="btn btn-outline-secondary">Official website &raquo;</a></p>
-    </div>
-  </div><!-- /.row -->
 </div>
 {% endblock %}
 

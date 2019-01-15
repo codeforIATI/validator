@@ -1,0 +1,7 @@
+{% if not valid %}
+    <ul>
+    {% for error in valid.error_log[:10] %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
