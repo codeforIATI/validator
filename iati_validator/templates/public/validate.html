@@ -47,6 +47,18 @@
     {% if not valid_codelists %}
         {{ valid_codelists.error_log[:10] }}
     {% endif %}
+
+    {% set unique_ids = dataset.validate_unique_ids() %}
+    <div class="alert alert-{% if unique_ids %}success{% else %}danger{% endif %}">
+      {% if unique_ids %}
+        No duplicate IDs found within this dataset
+      {% else %}
+        Duplicate IDs found within this dataset
+      {% endif %}
+    </div><!-- end .alert -->
+    {% if not unique_ids %}
+        {{ unique_ids.error_log[:10] }}
+    {% endif %}
   </div>
 </div><!-- /.jumbotron -->
 {% endblock %}
