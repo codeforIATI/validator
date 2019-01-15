@@ -17,7 +17,7 @@
       {% endif %}
     </div><!-- end .alert -->
     {% if not valid_xml %}
-        {{valid_xml.error_log}}
+        {{ valid_xml.error_log[:10] }}
     {% endif %}
 
     {% set valid_iati = dataset.validate_iati() %}
@@ -33,7 +33,7 @@
       {% endif %}
     </div><!-- end .alert -->
     {% if not valid_iati %}
-        {{valid_iati.error_log}}
+        {{ valid_iati.error_log[:10] }}
     {% endif %}
 
     {% set valid_codelists = dataset.validate_codelists() %}
@@ -45,7 +45,7 @@
       {% endif %}
     </div><!-- end .alert -->
     {% if not valid_codelists %}
-        {{valid_codelists.error_log}}
+        {{ valid_codelists.error_log[:10] }}
     {% endif %}
   </div>
 </div><!-- /.jumbotron -->
