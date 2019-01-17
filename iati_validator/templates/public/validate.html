@@ -21,7 +21,7 @@
       </h4>
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
         {% with valid=valid_xml %}
-          {% include "_show_error_log.html" %}
+          {% include "_show_validation_errors.html" %}
         {% endwith %}
       </div>
     </div>
@@ -45,7 +45,7 @@
       </h4>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
         {% with valid=valid_iati %}
-          {% include "_show_error_log.html" %}
+          {% include "_show_validation_errors.html" %}
         {% endwith %}
       </div>
     </div>
@@ -64,26 +64,7 @@
       </h4>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
         {% with valid=valid_codelists %}
-          {% include "_show_error_log.html" %}
-        {% endwith %}
-      </div>
-    </div>
-
-    {% set unique_ids = dataset.validate_unique_ids() %}
-    <div class="alert {% if unique_ids %}alert-success{% else %}alert-danger{% endif %}" role="alert">
-      <h4 class="alert-heading" id="headingFour">
-        {% if unique_ids %}
-          <i class="fa fa-check-square-o" aria-hidden="true"></i> No duplicate activity IDs found within this dataset
-        {% else %}
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Duplicate activity IDs found within this dataset
-        {% endif %}
-        <button type="button" class="close" data-toggle="collapse" data-target="#collapseFour" aria-label="Close">
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
-        </button>
-      </h4>
-      <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
-        {% with valid=unique_ids %}
-          {% include "_show_error_log.html" %}
+          {% include "_show_validation_errors.html" %}
         {% endwith %}
       </div>
     </div>

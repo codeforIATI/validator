@@ -17,6 +17,7 @@ def create_app(config_object='iati_validator.settings'):
     register_errorhandlers(app)
     register_shellcontext(app)
     register_commands(app)
+    register_template_filters(app)
     return app
 
 
@@ -28,13 +29,24 @@ def register_extensions(app):
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     webpack.init_app(app)
-    return None
 
 
 def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
-    return None
+
+
+def register_template_filters(app):
+    @app.template_filter()
+    def commify(value):
+        return format(int(value), ',d')
+
+    @app.template_filter()
+    def pluralise(word, count, singular=None, plural=None):
+        if count == 1:
+            return singular if singular else word
+        else:
+            return plural if plural else word + 's'
 
 
 def register_errorhandlers(app):
@@ -46,7 +58,6 @@ def register_errorhandlers(app):
         return render_template('{0}.html'.format(error_code)), error_code
     for errcode in [401, 404, 500]:
         app.errorhandler(errcode)(render_error)
-    return None
 
 
 def register_shellcontext(app):

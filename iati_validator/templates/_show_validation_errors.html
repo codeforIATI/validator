@@ -1,0 +1,18 @@
+{% if not valid %}
+    <ul>
+    {% for error, count in valid.error_summary %}
+        <li>
+            <h5>{{ error.summary }} ({{ count | commify }} {{ 'occurrence' | pluralise(count) }})</h5>
+            <p>
+                {{ error.details }}
+
+                {% if error.url %}
+                  <a href="{{ error.url }}" target="_blank">[ref]</a>
+                {% endif %}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+<p>Good news! Everything looks fine here.</p>
+{% endif %}
