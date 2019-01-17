@@ -55,5 +55,14 @@ def validate(uuid):
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     supplied_data.original_file)
     dataset = iatikit.Dataset(filepath)
-    return render_template('public/validate.html', data=supplied_data,
-                           dataset=dataset)
+
+    valid_xml = dataset.validate_xml()
+    valid_iati = dataset.validate_iati()
+    valid_codelists = dataset.validate_codelists()
+    success = valid_xml and valid_iati and valid_codelists
+
+    return render_template('public/validate.html',
+                           data=supplied_data, dataset=dataset,
+                           valid_xml=valid_xml, valid_iati=valid_iati,
+                           valid_codelists=valid_codelists,
+                           success=success)

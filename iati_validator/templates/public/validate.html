@@ -7,7 +7,6 @@
 
     <h1 class="display-3">IATI Validator</h1>
 
-    {% set valid_xml = dataset.validate_xml() %}
     <div class="alert {% if valid_xml %}alert-success{% else %}alert-danger{% endif %}" role="alert">
       <h4 class="alert-heading" id="headingOne">
         {% if valid_xml %}
@@ -21,12 +20,11 @@
       </h4>
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
         {% with valid=valid_xml %}
-          {% include "_show_validation_errors.html" %}
+          {% include "public/_show_validation_errors.html" %}
         {% endwith %}
       </div>
     </div>
 
-    {% set valid_iati = dataset.validate_iati() %}
     <div class="alert {% if valid_iati %}alert-success{% else %}alert-danger{% endif %}" role="alert">
       <h4 class="alert-heading" id="headingTwo">
         {% if valid_iati %}
@@ -45,12 +43,11 @@
       </h4>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
         {% with valid=valid_iati %}
-          {% include "_show_validation_errors.html" %}
+          {% include "public/_show_validation_errors.html" %}
         {% endwith %}
       </div>
     </div>
 
-    {% set valid_codelists = dataset.validate_codelists() %}
     <div class="alert {% if valid_codelists %}alert-success{% else %}alert-danger{% endif %}" role="alert">
       <h4 class="alert-heading" id="headingThree">
         {% if valid_codelists %}
@@ -64,7 +61,7 @@
       </h4>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
         {% with valid=valid_codelists %}
-          {% include "_show_validation_errors.html" %}
+          {% include "public/_show_validation_errors.html" %}
         {% endwith %}
       </div>
     </div>
