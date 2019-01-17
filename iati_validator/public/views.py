@@ -2,7 +2,7 @@
 from os.path import join
 
 from flask import Blueprint, render_template, request, redirect, \
-    url_for, current_app
+    url_for, current_app, send_file
 import iatikit
 
 from ..extensions import db
@@ -41,6 +41,23 @@ def upload():
     db.session.add(supplied_data)
     db.session.commit()
     return redirect(url_for('public.validate', uuid=supplied_data.id))
+
+
+@blueprint.route('/badge.svg')
+def badge():
+    source_url = request.args.get('url')
+    supplied_data = SuppliedData(source_url, None, None, 'url_form')
+
+    filepath = join(current_app.config['MEDIA_FOLDER'],
+                    supplied_data.original_file)
+    dataset = iatikit.Dataset(filepath)
+
+    if dataset.validate_xml() and dataset.validate_iati() \
+            and dataset.validate_codelists():
+        svg_file = join('static', 'passing.svg')
+    else:
+        svg_file = join('static', 'failing.svg')
+    return send_file(svg_file, mimetype='image/svg+xml')
 
 
 @blueprint.route('/about/')
