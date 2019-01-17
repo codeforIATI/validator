@@ -65,7 +65,7 @@ class SuppliedData(db.Model):
             filepath = join(self.upload_dir(), filename)
             file.save(filepath)
         else:
-            filename = 'test.xml'
+            filename = 'paste.xml'
             makedirs(self.upload_dir(), exist_ok=True)
             filepath = join(self.upload_dir(), filename)
             with open(filepath, 'w') as f:
