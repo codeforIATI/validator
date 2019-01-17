@@ -2,7 +2,7 @@
     <ul>
     {% for error, count in valid.error_summary %}
         <li>
-            <h5>{{ error.summary }} ({{ count | commify }} {{ 'occurrence' | pluralise(count) }})</h5>
+            <h5>{{ error.summary }}{% if count > 1 %} ({{ count | commify }} occurrences){% endif %}</h5>
             <p>
                 {{ error.details }}
 
