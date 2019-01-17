@@ -3,7 +3,7 @@ from os.path import join
 
 from flask import Blueprint, render_template, request, redirect, \
     url_for, current_app
-import pyandi
+import iatikit
 
 from ..extensions import db
 from .models import SuppliedData
@@ -54,6 +54,6 @@ def validate(uuid):
     supplied_data = SuppliedData.query.get_or_404(str(uuid))
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     supplied_data.original_file)
-    dataset = pyandi.Dataset(filepath)
+    dataset = iatikit.Dataset(filepath)
     return render_template('public/validate.html', data=supplied_data,
                            dataset=dataset)
