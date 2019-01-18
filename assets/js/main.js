@@ -9,6 +9,7 @@ require('jquery');
 require('font-awesome-webpack');
 require('popper.js');
 require('bootstrap');
+require('bs-custom-file-input').init();
 
 // Your own code
 require('./plugins.js');
