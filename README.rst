@@ -1,5 +1,5 @@
-(Unofficial) IATI Validator
-===========================
+Unofficial IATI Validator
+=========================
 
 Validate IATI XML files
 
