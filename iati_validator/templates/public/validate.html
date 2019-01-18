@@ -53,12 +53,12 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
         {% if valid_iati %}
           <p>Good news! Everything looks fine here.</p>
-        {% elif valid_iati is sameas false %}
+        {% elif valid_iati is sameas none %}
+          <p>It’s not possible to perform IATI schema validation for invalid XML.</p>
+        {% else %}
           {% with error_summary=valid_iati.error_summary %}
             {% include "public/_show_validation_errors.html" %}
           {% endwith %}
-        {% else %}
-          <p>It’s not possible to perform IATI schema validation for invalid XML.</p>
         {% endif %}
       </div>
     </div>
@@ -67,10 +67,10 @@
       <h4 class="alert-heading" id="headingThree">
         {% if valid_codelists %}
           <i class="fa fa-fw fa-check-square-o" aria-hidden="true"></i>No invalid codelist values found
-        {% elif valid_codelists is sameas false %}
-          <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>Invalid codelist values used
-        {% else %}
+        {% elif valid_codelists is sameas none %}
           <i class="fa fa-fw fa-question-circle" aria-hidden="true"></i>Could not check codelist values
+        {% else %}
+          <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>Invalid codelist values used
         {% endif %}
         <button type="button" class="close" data-toggle="collapse" data-target="#collapseThree" aria-label="Close">
           <i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
@@ -79,12 +79,12 @@
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
         {% if valid_codelists %}
           <p>Good news! Everything looks fine here.</p>
-        {% elif valid_codelists is sameas false %}
+        {% elif valid_codelists is sameas none %}
+          <p>It’s not possible to perform codelist validation for invalid XML.</p>
+        {% else %}
           {% with error_summary=valid_codelists.error_summary %}
             {% include "public/_show_validation_errors.html" %}
           {% endwith %}
-        {% else %}
-          <p>It’s not possible to perform codelist validation for invalid XML.</p>
         {% endif %}
       </div>
     </div>
