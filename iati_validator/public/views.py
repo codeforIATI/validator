@@ -24,8 +24,8 @@ def upload():
         form_data = request.form
     else:
         form_data = request.args
-    source_url = form_data.get('source_url')
-    original_file = request.files.get('original_file')
+    source_url = form_data.get('url')
+    original_file = request.files.get('file')
     raw_text = form_data.get('paste')
     form_name = None
 
