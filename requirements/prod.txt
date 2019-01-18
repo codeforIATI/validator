@@ -12,7 +12,7 @@ requests==2.21.0
 
 # Database
 Flask-SQLAlchemy==2.3.2
-psycopg2==2.7.5
+psycopg2-binary==2.7.6.1
 SQLAlchemy==1.2.11
 
 # Migrations
