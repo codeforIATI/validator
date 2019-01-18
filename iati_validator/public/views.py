@@ -74,8 +74,13 @@ def validate(uuid):
     dataset = iatikit.Dataset(filepath)
 
     valid_xml = dataset.validate_xml()
-    valid_iati = dataset.validate_iati()
-    valid_codelists = dataset.validate_codelists()
+    if valid_xml:
+        valid_iati = dataset.validate_iati()
+        valid_codelists = dataset.validate_codelists()
+    else:
+        valid_iati = None
+        valid_codelists = None
+
     success = valid_xml and valid_iati and valid_codelists
 
     return render_template('public/validate.html',

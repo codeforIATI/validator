@@ -1,18 +1,14 @@
-{% if not valid %}
-    <ul>
-    {% for error, count in valid.error_summary %}
-        <li>
-            <h5>{{ error.summary }}{% if count > 1 %} ({{ count | commify }} occurrences){% endif %}</h5>
-            <p>
-                {{ error.details }}
+<ul>
+{% for error, count in error_summary %}
+    <li>
+        <h5>{{ error.summary }}{% if count > 1 %} ({{ count | commify }} occurrences){% endif %}</h5>
+        <p>
+            {{ error.details }}
 
-                {% if error.url %}
-                  <a href="{{ error.url }}" target="_blank">[ref]</a>
-                {% endif %}
-            </p>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-<p>Good news! Everything looks fine here.</p>
-{% endif %}
+            {% if error.url %}
+              <a href="{{ error.url }}" target="_blank">[ref]</a>
+            {% endif %}
+        </p>
+    </li>
+{% endfor %}
+</ul>
