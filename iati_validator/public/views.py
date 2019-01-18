@@ -60,12 +60,6 @@ def badge():
     return send_file(svg_file, mimetype='image/svg+xml')
 
 
-@blueprint.route('/about/')
-def about():
-    """About page."""
-    return render_template('public/about.html')
-
-
 @blueprint.route('/validate/<uuid:uuid>')
 def validate(uuid):
     supplied_data = SuppliedData.query.get_or_404(str(uuid))
