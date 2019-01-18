@@ -13,3 +13,7 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+
+header a {
+  color: #fff;
+}
