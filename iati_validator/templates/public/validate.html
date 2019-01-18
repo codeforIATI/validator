@@ -3,19 +3,22 @@
 {% set active_page = "validate" -%}
 
 {% block content %}
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Validation results</h1>
+      </div>
+    </section>
+
   <div class="container">
-
-    <h1 class="display-3">(Unofficial) IATI Validator</h1>
-
     <div class="alert {% if valid_xml %}alert-success{% else %}alert-danger{% endif %}" role="alert">
       <h4 class="alert-heading" id="headingOne">
         {% if valid_xml %}
-          <i class="fa fa-check-square-o" aria-hidden="true"></i> XML is valid
+          <i class="fa fa-fw fa-check-square-o" aria-hidden="true"></i>XML is valid
         {% else %}
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> XML is invalid
+          <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>XML is invalid
         {% endif %}
         <button type="button" class="close" data-toggle="collapse" data-target="#collapseOne" aria-label="Close">
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
         </button>
       </h4>
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
@@ -29,23 +32,22 @@
       </div>
     </div>
 
-    <div class="alert {% if valid_iati %}alert-success{% elif valid_iati is sameas false %}alert-danger{% else %}alert-secondary{% endif %}" role="alert">
+    <div class="alert {% if valid_iati %}alert-success{% elif valid_iati is sameas none %}alert-secondary{% else %}alert-danger{% endif %}" role="alert">
       <h4 class="alert-heading" id="headingTwo">
         {% if valid_iati %}
-          <i class="fa fa-check-square-o" aria-hidden="true"></i> Valid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
-        {% elif valid_iati is sameas false %}
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          {% if dataset.schema %}
-            Invalid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
-          {% else %}
-            Invalid against any IATI schema
-          {% endif %}
+          <i class="fa fa-fw fa-check-square-o" aria-hidden="true"></i>Valid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
+        {% elif valid_iati is sameas none %}
+          <i class="fa fa-fw fa-question-circle" aria-hidden="true"></i>Could not validate against an IATI schema
         {% else %}
-          <i class="fa fa-question-circle" aria-hidden="true"></i>
-          Could not validate against an IATI schema
+          <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
+          {%- if dataset.schema -%}
+            Invalid against IATI {{ dataset.filetype }} schema version {{ dataset.version }}
+          {%- else -%}
+            Invalid against any IATI schema
+          {%- endif -%}
         {% endif %}
         <button type="button" class="close" data-toggle="collapse" data-target="#collapseTwo" aria-label="Close">
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
         </button>
       </h4>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
@@ -61,17 +63,17 @@
       </div>
     </div>
 
-    <div class="alert {% if valid_codelists %}alert-success{% elif valid_codelists is sameas false %}alert-danger{% else %}alert-secondary{% endif %}" role="alert">
+    <div class="alert {% if valid_codelists %}alert-success{% elif valid_codelists is sameas none %}alert-secondary{% else %}alert-danger{% endif %}" role="alert">
       <h4 class="alert-heading" id="headingThree">
         {% if valid_codelists %}
-          <i class="fa fa-check-square-o" aria-hidden="true"></i> No invalid codelist values found
+          <i class="fa fa-fw fa-check-square-o" aria-hidden="true"></i>No invalid codelist values found
         {% elif valid_codelists is sameas false %}
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Invalid codelist values used
+          <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>Invalid codelist values used
         {% else %}
-          <i class="fa fa-question-circle" aria-hidden="true"></i> Could not check codelist values
+          <i class="fa fa-fw fa-question-circle" aria-hidden="true"></i>Could not check codelist values
         {% endif %}
         <button type="button" class="close" data-toggle="collapse" data-target="#collapseThree" aria-label="Close">
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
         </button>
       </h4>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree">

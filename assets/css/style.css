@@ -2,36 +2,14 @@
    App specific CSS file.
    ========================================================================== */
 
-/* universal */
-
-body {
-  padding-top: 60px;
-}
-
-/* footer */
-
 footer {
-  margin-top: 45px;
-  padding-top: 5px;
+  margin-top: 4rem;
   border-top: 1px solid #eaeaea;
   color: #999999;
-}
-
-footer a {
-  color: #999999;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 footer p {
-  float: right;
-  margin-right: 25px;
-}
-
-footer ul li {
-  float: left;
-  margin-left: 10px;
-}
-
-footer .footer-nav {
-  margin-right: 25px;
-  list-style: none;
+  margin-bottom: .25rem;
 }
