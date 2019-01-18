@@ -11,6 +11,7 @@
 
     {% endblock %}</title>
 
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     {{ stylesheet_tag('main_css') | safe }}
 
     {% block css %}{% endblock %}
