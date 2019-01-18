@@ -27,15 +27,17 @@
         <div class="card-body">
           <form action="{{ url_for('public.upload') }}" method="POST" enctype="multipart/form-data">
               <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-              <div class="input-group">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="id_file" name="file" aria-describedby="file">
-                  <label class="custom-file-label" for="id_file">Upload an XML file</label>
+              <form-group>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="id_file" name="file" aria-describedby="file">
+                    <label class="custom-file-label" for="id_file">Upload an XML file</label>
+                  </div>
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
                 </div>
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </div>
+              </form-group>
           </form>
         </div>
       </div>
@@ -51,16 +53,16 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
         <div class="card-body">
           <form action="{{ url_for('public.upload') }}" id="fetchURL" method="POST">
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-              <div class="form-group">
-                <label class="control-label" for="id_url">Supply a link to an XML file</label>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <form-group>
+              <label class="control-label" for="id_url">Supply a link to an XML file</label>
+              <div class="input-group">
                 <input class="form-control" id="id_url" maxlength="2000" name="url" placeholder="https://…" required="required" title="" type="url" />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
               </div>
-              <div class="form-group">
-                  <button type="submit" class="btn btn-primary">
-                      Submit
-                  </button>
-              </div>
+            </form-group>
           </form>
         </div>
       </div>
@@ -76,13 +78,16 @@
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
         <div class="card-body">
           <form action="{{ url_for('public.upload') }}" method="POST">
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-              <div class="form-group"><label class="control-label" for="id_paste">Paste XML code</label><textarea class="form-control" cols="40" id="id_paste" name="paste" placeholder="<iati-activities>…" required="required" rows="10" title=""></textarea></div>
-              <div class="form-group">
-                  <button type="submit" class="btn btn-primary">
-                      Submit
-                  </button>
-              </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+              <label class="control-label" for="id_paste">Paste XML code</label>
+              <textarea class="form-control" cols="40" id="id_paste" name="paste" placeholder="<iati-activities>…" required="required" rows="10" title=""></textarea>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>
