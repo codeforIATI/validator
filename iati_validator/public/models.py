@@ -28,14 +28,11 @@ class SuppliedData(db.Model):
     form_name = db.Column(db.Enum(FormName))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def generate_uuid(self):
-        return str(uuid.uuid4())
-
     def upload_dir(self):
         return join(current_app.config['MEDIA_FOLDER'], self.id)
 
     def __init__(self, source_url, file, raw_text, form_name):
-        self.id = self.generate_uuid()
+        self.id = str(uuid.uuid4())
 
         if form_name == 'url_form':
             self.source_url = source_url
