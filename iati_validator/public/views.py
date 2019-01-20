@@ -1,9 +1,9 @@
 """Public section, including homepage and signup."""
-from os.path import join
+from os.path import join, exists
 import re
 
 from flask import Blueprint, render_template, request, redirect, \
-    url_for, current_app, send_file
+    url_for, current_app, send_file, flash
 import iatikit
 from pygments import highlight
 from pygments.lexers.html import XmlLexer
@@ -69,6 +69,9 @@ def validate(uuid):
     supplied_data = SuppliedData.query.get_or_404(str(uuid))
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     supplied_data.original_file)
+    if not exists(filepath):
+        flash('That dataset is no longer available', 'warning')
+        return redirect(url_for('public.home'))
     dataset = iatikit.Dataset(filepath)
 
     if supplied_data.validated:
@@ -121,6 +124,9 @@ def show(uuid):
     validation_error = ValidationError.query.get_or_404(str(uuid))
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     validation_error.supplied_data.original_file)
+    if not exists(filepath):
+        flash('That dataset is no longer available', 'warning')
+        return redirect(url_for('public.home'))
     match = re.search(r'/iati-(?:activity|organisation)\[(\d+)\]',
                       validation_error.path)
     act_num = int(match.group(1)) - 1
