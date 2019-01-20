@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andylolz/iati-validator.git"
+    "url": "git+https://github.com/treadsoft/iati-validator.git"
   },
   "author": "Andy Lulham",
   "license": "BSD-3-Clause",
@@ -19,9 +19,9 @@
     "node": ">=4"
   },
   "bugs": {
-    "url": "https://github.com/andylolz/iati-validator/issues"
+    "url": "https://github.com/treadsoft/iati-validator/issues"
   },
-  "homepage": "https://github.com/andylolz/iati-validator#readme",
+  "homepage": "https://github.com/treadsoft/iati-validator#readme",
   "dependencies": {
     "bootstrap": "^4.1.3",
     "bs-custom-file-input": "^1.3.1",
