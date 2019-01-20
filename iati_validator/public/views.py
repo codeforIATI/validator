@@ -70,7 +70,7 @@ def validate(uuid):
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     supplied_data.original_file)
     if not exists(filepath):
-        flash('That dataset is no longer available', 'warning')
+        flash('That dataset is no longer available', 'danger')
         return redirect(url_for('public.home'))
     dataset = iatikit.Dataset(filepath)
 
@@ -125,7 +125,7 @@ def show(uuid):
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     validation_error.supplied_data.original_file)
     if not exists(filepath):
-        flash('That dataset is no longer available', 'warning')
+        flash('That dataset is no longer available', 'danger')
         return redirect(url_for('public.home'))
     match = re.search(r'/iati-(?:activity|organisation)\[(\d+)\]',
                       validation_error.path)

@@ -18,10 +18,23 @@ header a {
   color: #fff;
 }
 
+header a:hover {
+  color: #fff;
+}
+
 .highlight pre {
   white-space: pre-wrap;
   white-space: -pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+}
+
+.jumbotron {
+  border-radius: 0;
+}
+
+.flash-message {
+  margin-bottom: 0;
+  border-radius: 0;
 }
