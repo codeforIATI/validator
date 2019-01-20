@@ -1,12 +1,16 @@
 """Public section, including homepage and signup."""
 from os.path import join
+import re
 
 from flask import Blueprint, render_template, request, redirect, \
     url_for, current_app, send_file
 import iatikit
+from pygments import highlight
+from pygments.lexers.html import XmlLexer
+from pygments.formatters import HtmlFormatter
 
 from ..extensions import db
-from .models import SuppliedData
+from .models import SuppliedData, ValidationError
 
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
@@ -67,18 +71,68 @@ def validate(uuid):
                     supplied_data.original_file)
     dataset = iatikit.Dataset(filepath)
 
-    valid_xml = dataset.validate_xml()
-    if valid_xml:
-        valid_iati = dataset.validate_iati()
-        valid_codelists = dataset.validate_codelists()
+    if supplied_data.validated:
+        xml_errors = supplied_data.xml_errors
+        iati_errors = supplied_data.iati_errors
+        codelist_errors = supplied_data.codelist_errors
     else:
-        valid_iati = None
-        valid_codelists = None
+        xml_errors = []
+        iati_errors = []
+        codelist_errors = []
 
-    success = valid_xml and valid_iati and valid_codelists
+        valid_xml = dataset.validate_xml()
+        if valid_xml:
+            dataset.unminify_xml()
+            valid_iati = dataset.validate_iati()
+            for error, count in valid_iati.error_summary:
+                iati_error = ValidationError(
+                    'iati_error', error, count, supplied_data)
+                iati_errors.append(iati_error)
+                db.session.add(iati_error)
+
+            valid_codelists = dataset.validate_codelists()
+            for error, count in valid_codelists.error_summary:
+                codelist_error = ValidationError(
+                    'codelist_error', error, count, supplied_data)
+                codelist_errors.append(codelist_error)
+                db.session.add(codelist_error)
+        else:
+            for error, count in valid_xml.error_summary:
+                xml_error = ValidationError(
+                    'xml_error', error, count, supplied_data)
+                xml_errors.append(xml_error)
+                db.session.add(xml_error)
+
+    success = not(xml_errors or iati_errors or codelist_errors)
+
+    supplied_data.validated = True
+    db.session.add(supplied_data)
+    db.session.commit()
 
     return render_template('public/validate.html',
                            data=supplied_data, dataset=dataset,
-                           valid_xml=valid_xml, valid_iati=valid_iati,
-                           valid_codelists=valid_codelists,
+                           xml_errors=xml_errors, iati_errors=iati_errors,
+                           codelist_errors=codelist_errors,
                            success=success)
+
+
+@blueprint.route('/show/<uuid:uuid>')
+def show(uuid):
+    validation_error = ValidationError.query.get_or_404(str(uuid))
+    filepath = join(current_app.config['MEDIA_FOLDER'],
+                    validation_error.supplied_data.original_file)
+    match = re.search(r'/iati-(?:activity|organisation)\[(\d+)\]',
+                      validation_error.path)
+    act_num = int(match.group(1)) - 1
+    dataset = iatikit.Dataset(filepath)
+    dataset.unminify_xml()
+    activity = dataset.activities[act_num]
+    start_line = activity.etree.sourceline
+    line = validation_error.line - start_line + 1
+    highlighted_xml = highlight(activity.xml, XmlLexer(),
+                                HtmlFormatter(linenos='inline',
+                                              lineanchors='L',
+                                              hl_lines=[line],
+                                              linenostart=start_line))
+    return render_template('public/show_error.html',
+                           code=highlighted_xml)

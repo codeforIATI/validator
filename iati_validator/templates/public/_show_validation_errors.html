@@ -1,7 +1,11 @@
 <ul>
-{% for error, count in error_summary %}
+{% for error in errors %}
     <li>
-        <h5>{{ error.summary }}{% if count > 1 %} ({{ count | commify }} occurrences){% endif %}</h5>
+        <h5>{{ error.summary }}{% if error.occurrences > 1 %} ({{ error.occurrences | commify }} occurrences){% endif %}
+            {% if error.can_show -%}
+              <a href="{{ url_for('public.show', uuid=error.id) }}#L-{{ error.line }}">Show me</a>
+            {%- endif -%}
+        </h5>
         <p>
             {{ error.details }}
 
