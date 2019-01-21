@@ -102,6 +102,7 @@ class ValidationError(db.Model):
     line = db.Column(db.Integer, nullable=True)
     path = db.Column(db.String(200), nullable=True)
     occurrences = db.Column(db.Integer, nullable=False)
+    url = db.Column(db.String(200), nullable=True)
 
     @property
     def can_show(self):
@@ -118,5 +119,6 @@ class ValidationError(db.Model):
         self.details = iatikit_error.details
         self.line = iatikit_error.line
         self.path = iatikit_error.path
+        self.url = iatikit_error.url
         self.occurrences = occurrences
         self.supplied_data = supplied_data
