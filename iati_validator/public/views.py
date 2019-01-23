@@ -39,6 +39,9 @@ def upload():
         form_name = 'text_form'
     elif original_file:
         form_name = 'upload_form'
+    else:
+        flash('Error: No data provided', 'danger')
+        return redirect(url_for('public.home'))
 
     supplied_data = SuppliedData(source_url, original_file,
                                  raw_text, form_name)
@@ -70,7 +73,7 @@ def validate(uuid):
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     supplied_data.original_file)
     if not exists(filepath):
-        flash('That dataset is no longer available', 'danger')
+        flash('Error: That dataset is no longer available', 'danger')
         return redirect(url_for('public.home'))
     dataset = iatikit.Dataset(filepath)
 
