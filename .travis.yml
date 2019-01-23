@@ -17,8 +17,6 @@ before_script:
 - flask lint
 script: pytest tests
 deploy:
-  on:
-    python: 3.6
   provider: heroku
   api_key:
     secure: kUGwWFzvzw/NMgFAZ5YiaroXitEO/CXpSj9YEPphPP2Pb3T47uwxLX+7Q/RQhIl+qs/5fb24bqgl/haUAMyHYmPX2+n3SC44Ym+YPkLxlhnQIV95z4KRIE8QzdD667nspFxcOdkrEH6XuuJANlb5r+p/zk0PRNlqYT9FUBeuT1yz4m0Jk3x2dHSsxsiE6LF8ovjoyeXooTliGGRrwt6vL5ciieC3O7yaHLp6xlCtNeAVLrdYnOHo8k6gS5hqgoEdv9lwvHIcrBpV686lC6wttS4KvQSc5C2VovaZvAp3VLgRMuLs665tCdWuEtPMTZZ+uM2pxVWJv8zWea1WDfIOmpfMkWGwWgrOTYrA7tDRUuEATdtY66vkXGfq03jiOYWjJWN55YOUKo1PLnUFaKHBYRUPwZUq+6VDm5m9OQbbStHWFsjRiq/0XkMTzpfqSS9+WwuvoVZJCagdgX1oaYsf1Yp9VLU4jkpckQEotfXK/zf62Jhyuwz6W/5mM9R50jGxa4tpaygVVcITHMojU9lLGt6dOijh0g3n5jante1GEIOQ7XVMCo09T3Z3IueEj1RlV2xo9TCrbnld22AgXZCAgmCZxDlyh/a1j9e/OVmJqlzq8RiXOKe3W+UBNJYUiag10GEc+9+HbjYX/Z+JunivjcwK66MOVC893MCsHeilYA8=
