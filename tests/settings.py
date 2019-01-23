@@ -1,3 +1,5 @@
+"""Test configuration."""
+
 from os.path import abspath, dirname, join
 
 
