@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Validate IATI XML files",
   "scripts": {
-    "postinstall": "NODE_ENV=production webpack --progress --colors -p",
+    "build": "NODE_ENV=production webpack --progress --colors -p",
+    "postinstall": "npm run build",
     "start": "concurrently -n \"WEBPACK,FLASK\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run webpack-dev-server\" \"npm run flask-server\"",
     "webpack-dev-server": "NODE_ENV=debug webpack-dev-server --port 2992 --hot --inline",
     "flask-server": "flask run",
