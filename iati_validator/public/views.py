@@ -53,6 +53,9 @@ def upload():
 @blueprint.route('/badge.svg')
 def badge():
     source_url = request.args.get('url')
+    if source_url is None:
+        svg_file = join('static', 'error.svg')
+        return send_file(svg_file, mimetype='image/svg+xml')
     supplied_data = SuppliedData(source_url, None, None, 'url_form')
 
     filepath = join(current_app.config['MEDIA_FOLDER'],
