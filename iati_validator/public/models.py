@@ -14,8 +14,11 @@ from ..extensions import db
 
 
 class SuppliedData(db.Model):
-    """A user of the app."""
+    """Supplied data to be validated."""
+
     class FormName(Enum):
+        """Form name helper class."""
+
         upload_form = 'File upload'
         url_form = 'Downloaded from URL'
         text_form = 'Pasted into textarea'
@@ -31,24 +34,29 @@ class SuppliedData(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def upload_dir(self):
+        """Returns the folder that the data was uploaded to."""
         return join(current_app.config['MEDIA_FOLDER'], self.id)
 
     @property
     def xml_errors(self):
+        """Returns a list of XML validation errors."""
         return [x for x in self.validation_errors
                 if x.error_type == 'xml_error']
 
     @property
     def iati_errors(self):
+        """Returns a list of IATI schema validation errors."""
         return [x for x in self.validation_errors
                 if x.error_type == 'iati_error']
 
     @property
     def codelist_errors(self):
+        """Returns a list of IATI codelist validation errors."""
         return [x for x in self.validation_errors
                 if x.error_type == 'codelist_error']
 
     def __init__(self, source_url, file, raw_text, form_name):
+        """Constructs a new supplied data model, and fetches the data."""
         self.id = str(uuid.uuid4())
 
         if form_name == 'url_form':
@@ -82,8 +90,8 @@ class SuppliedData(db.Model):
             filename = 'paste.xml'
             makedirs(self.upload_dir(), exist_ok=True)
             filepath = join(self.upload_dir(), filename)
-            with open(filepath, 'w') as f:
-                f.write(raw_text)
+            with open(filepath, 'w') as handler:
+                handler.write(raw_text)
 
         self.original_file = join(self.id, filename)
         self.form_name = form_name
@@ -91,6 +99,8 @@ class SuppliedData(db.Model):
 
 
 class ValidationError(db.Model):
+    """Class for modelling an individual validation error."""
+
     id = db.Column(db.String(40), primary_key=True)
     supplied_data_id = db.Column(
         db.String, db.ForeignKey('supplied_data.id'), nullable=False)
@@ -106,6 +116,7 @@ class ValidationError(db.Model):
 
     @property
     def can_show(self):
+        """Determines if an example of the error can be linked."""
         if not (self.path or self.line):
             return False
         match = re.search(r'/iati-(?:activity|organisation)\[(\d+)\]',
@@ -113,6 +124,7 @@ class ValidationError(db.Model):
         return bool(match)
 
     def __init__(self, error_type, iatikit_error, occurrences, supplied_data):
+        """Constructs a validation error."""
         self.id = str(uuid.uuid4())
         self.error_type = error_type
         self.summary = iatikit_error.summary

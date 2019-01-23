@@ -37,6 +37,7 @@ def register_blueprints(app):
 
 
 def register_template_filters(app):
+    """Register template filters."""
     @app.template_filter()
     def commify(value):
         return format(int(value), ',d')
@@ -45,8 +46,7 @@ def register_template_filters(app):
     def pluralise(word, count, singular=None, plural=None):
         if count == 1:
             return singular if singular else word
-        else:
-            return plural if plural else word + 's'
+        return plural if plural else word + 's'
 
 
 def register_errorhandlers(app):

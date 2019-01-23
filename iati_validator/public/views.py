@@ -18,12 +18,13 @@ blueprint = Blueprint('public', __name__, static_folder='../static')
 
 @blueprint.route('/')
 def home():
-    """Home page."""
+    """Show the home page."""
     return render_template('public/home.html')
 
 
 @blueprint.route('/upload/', methods=['GET', 'POST'])
 def upload():
+    """Upload a dataset for validation."""
     if request.method == 'POST':
         form_data = request.form
     else:
@@ -52,6 +53,7 @@ def upload():
 
 @blueprint.route('/badge.svg')
 def badge():
+    """Show the validation status of a dataset as an SVG badge."""
     source_url = request.args.get('url')
     if source_url is None:
         svg_file = join('static', 'badges', 'no-url.svg')
@@ -72,6 +74,7 @@ def badge():
 
 @blueprint.route('/validate/<uuid:uuid>')
 def validate(uuid):
+    """Show the validation results for a supplied dataset."""
     supplied_data = SuppliedData.query.get_or_404(str(uuid))
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     supplied_data.original_file)
@@ -127,6 +130,7 @@ def validate(uuid):
 
 @blueprint.route('/show/<uuid:uuid>')
 def show(uuid):
+    """Show a validation error in its XML context."""
     validation_error = ValidationError.query.get_or_404(str(uuid))
     filepath = join(current_app.config['MEDIA_FOLDER'],
                     validation_error.supplied_data.original_file)
