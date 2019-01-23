@@ -6,7 +6,8 @@ from .extensions import cache, csrf_protect, db, debug_toolbar, migrate, webpack
 
 
 def create_app(config_object='iati_validator.settings'):
-    """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
+    """An application factory, as explained here:
+    http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.
     """
@@ -38,15 +39,18 @@ def register_blueprints(app):
 
 def register_template_filters(app):
     """Register template filters."""
-    @app.template_filter()
     def commify(value):
+        """Add number group commas to a number."""
         return format(int(value), ',d')
 
-    @app.template_filter()
     def pluralise(word, count, singular=None, plural=None):
+        """Pluralise a word."""
         if count == 1:
             return singular if singular else word
         return plural if plural else word + 's'
+
+    app.jinja_env.filters['commify'] = commify
+    app.jinja_env.filters['pluralise'] = pluralise
 
 
 def register_errorhandlers(app):

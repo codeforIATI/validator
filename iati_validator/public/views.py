@@ -13,7 +13,8 @@ from ..extensions import db
 from .models import SuppliedData, ValidationError
 
 
-blueprint = Blueprint('public', __name__, static_folder='../static')
+blueprint = Blueprint('public', __name__,  # pylint: disable=invalid-name
+                      static_folder='../static')
 
 
 @blueprint.route('/')
@@ -84,14 +85,17 @@ def validate(uuid):
     dataset = iatikit.Dataset(filepath)
 
     if supplied_data.validated:
-        xml_errors = supplied_data.xml_errors
-        iati_errors = supplied_data.iati_errors
-        codelist_errors = supplied_data.codelist_errors
+        errors = {
+            'xml_errors': supplied_data.xml_errors,
+            'iati_errors': supplied_data.iati_errors,
+            'codelist_errors': supplied_data.codelist_errors,
+        }
     else:
-        xml_errors = []
-        iati_errors = []
-        codelist_errors = []
-
+        errors = {
+            'xml_errors': [],
+            'iati_errors': [],
+            'codelist_errors': [],
+        }
         valid_xml = dataset.validate_xml()
         if valid_xml:
             dataset.unminify_xml()
@@ -99,23 +103,23 @@ def validate(uuid):
             for error, count in valid_iati.error_summary:
                 iati_error = ValidationError(
                     'iati_error', error, count, supplied_data)
-                iati_errors.append(iati_error)
+                errors['iati_errors'].append(iati_error)
                 db.session.add(iati_error)
 
             valid_codelists = dataset.validate_codelists()
             for error, count in valid_codelists.error_summary:
                 codelist_error = ValidationError(
                     'codelist_error', error, count, supplied_data)
-                codelist_errors.append(codelist_error)
+                errors['codelist_errors'].append(codelist_error)
                 db.session.add(codelist_error)
         else:
             for error, count in valid_xml.error_summary:
                 xml_error = ValidationError(
                     'xml_error', error, count, supplied_data)
-                xml_errors.append(xml_error)
+                errors['xml_errors'].append(xml_error)
                 db.session.add(xml_error)
 
-    success = not(xml_errors or iati_errors or codelist_errors)
+    success = all([e == [] for e in errors.values()])
 
     supplied_data.validated = True
     db.session.add(supplied_data)
@@ -123,9 +127,7 @@ def validate(uuid):
 
     return render_template('public/validate.html',
                            data=supplied_data, dataset=dataset,
-                           xml_errors=xml_errors, iati_errors=iati_errors,
-                           codelist_errors=codelist_errors,
-                           success=success)
+                           errors=errors, success=success)
 
 
 @blueprint.route('/show/<uuid:uuid>')

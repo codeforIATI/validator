@@ -57,7 +57,7 @@ class SuppliedData(db.Model):
 
     def __init__(self, source_url, file, raw_text, form_name):
         """Constructs a new supplied data model, and fetches the data."""
-        self.id = str(uuid.uuid4())
+        self.id = str(uuid.uuid4())  # pylint: disable=invalid-name
 
         if form_name == 'url_form':
             self.source_url = source_url
@@ -101,6 +101,9 @@ class SuppliedData(db.Model):
 class ValidationError(db.Model):
     """Class for modelling an individual validation error."""
 
+    # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-few-public-methods
+
     id = db.Column(db.String(40), primary_key=True)
     supplied_data_id = db.Column(
         db.String, db.ForeignKey('supplied_data.id'), nullable=False)
@@ -125,7 +128,7 @@ class ValidationError(db.Model):
 
     def __init__(self, error_type, iatikit_error, occurrences, supplied_data):
         """Constructs a validation error."""
-        self.id = str(uuid.uuid4())
+        self.id = str(uuid.uuid4())  # pylint: disable=invalid-name
         self.error_type = error_type
         self.summary = iatikit_error.summary
         self.details = iatikit_error.details

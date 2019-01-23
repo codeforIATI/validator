@@ -20,8 +20,8 @@ def lint():
         """Execute a checking tool with its arguments."""
         command_line = list(args) + files_and_directories
         click.echo('{}: {}'.format(description, ' '.join(command_line)))
-        rv = call(command_line)
-        if rv != 0:
-            exit(rv)
+        return_value = call(command_line)
+        if return_value != 0:
+            exit(return_value)
 
     execute_tool('Checking code style', 'flake8')

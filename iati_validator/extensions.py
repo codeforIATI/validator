@@ -7,9 +7,9 @@ from flask_webpack import Webpack
 from flask_wtf.csrf import CSRFProtect
 
 
-csrf_protect = CSRFProtect()
-db = SQLAlchemy()
-migrate = Migrate()
-cache = Cache()
-debug_toolbar = DebugToolbarExtension()
-webpack = Webpack()
+csrf_protect = CSRFProtect()  # pylint: disable=invalid-name
+db = SQLAlchemy()  # pylint: disable=invalid-name
+migrate = Migrate()  # pylint: disable=invalid-name
+cache = Cache()  # pylint: disable=invalid-name
+debug_toolbar = DebugToolbarExtension()  # pylint: disable=invalid-name
+webpack = Webpack()  # pylint: disable=invalid-name

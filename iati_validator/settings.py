@@ -10,9 +10,9 @@ from os.path import abspath, dirname, join
 from environs import Env
 
 
-basedir = abspath(dirname(__file__))
+basedir = abspath(dirname(__file__))  # pylint: disable=invalid-name
 
-env = Env()
+env = Env()  # pylint: disable=invalid-name
 env.read_env()
 
 ENV = env.str('FLASK_ENV', default='production')
