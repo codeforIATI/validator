@@ -54,7 +54,7 @@ def upload():
 def badge():
     source_url = request.args.get('url')
     if source_url is None:
-        svg_file = join('static', 'error.svg')
+        svg_file = join('static', 'badges', 'no-url.svg')
         return send_file(svg_file, mimetype='image/svg+xml')
     supplied_data = SuppliedData(source_url, None, None, 'url_form')
 
@@ -64,9 +64,9 @@ def badge():
 
     if dataset.validate_xml() and dataset.validate_iati() \
             and dataset.validate_codelists():
-        svg_file = join('static', 'passing.svg')
+        svg_file = join('static', 'badges', 'passing.svg')
     else:
-        svg_file = join('static', 'failing.svg')
+        svg_file = join('static', 'badges', 'failing.svg')
     return send_file(svg_file, mimetype='image/svg+xml')
 
 
