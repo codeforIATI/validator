@@ -9,7 +9,8 @@ import click
 @click.command()
 def lint():
     """Lint and check code style with flake8 and isort."""
-    skip = ['node_modules', 'requirements', 'venv', 'migrations']
+    skip = ['node_modules', 'requirements', 'venv', 'migrations',
+            '__iatikitcache__']
     root_files = glob('*.py')
     root_directories = [
         name for name in next(os.walk('.'))[1] if not name.startswith('.')]
