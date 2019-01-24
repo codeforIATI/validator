@@ -1,8 +1,10 @@
 Unofficial IATI Validator
 =========================
 
-Validate IATI XML files
+Validate IATI XML files.
 
+.. image:: https://travis-ci.org/treadsoft/iati-validator.svg?branch=master
+    :target: https://travis-ci.org/treadsoft/iati-validator
 
 Quickstart
 ----------
