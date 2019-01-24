@@ -26,3 +26,4 @@ def lint():
             exit(return_value)
 
     execute_tool('Checking code style', 'flake8')
+    execute_tool('Checking code style', 'pylint')
