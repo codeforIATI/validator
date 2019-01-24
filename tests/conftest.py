@@ -1,7 +1,6 @@
 """Defines fixtures available to all tests."""
 
 import pytest
-from webtest import TestApp
 
 from iati_validator.app import create_app
 from iati_validator.extensions import db as _db
@@ -10,23 +9,11 @@ from iati_validator.extensions import db as _db
 @pytest.fixture
 def app():
     """An application for the tests."""
-    _app = create_app('tests.settings')
-    ctx = _app.test_request_context()
-    ctx.push()
-
-    yield _app
-
-    ctx.pop()
+    return create_app('tests.settings')
 
 
 @pytest.fixture
-def testapp(app):
-    """A Webtest app."""
-    return TestApp(app)
-
-
-@pytest.fixture
-def db(app):
+def db(app):  # pylint: disable=invalid-name,redefined-outer-name
     """A database for the tests."""
     _db.app = app
     with app.app_context():

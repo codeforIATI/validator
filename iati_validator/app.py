@@ -6,7 +6,9 @@ from .extensions import cache, csrf_protect, db, debug_toolbar, migrate, webpack
 
 
 def create_app(config_object='iati_validator.settings'):
-    """An application factory, as explained here:
+    """Application factory.
+
+    As explained here:
     http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.

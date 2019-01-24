@@ -3,7 +3,7 @@
 from os.path import abspath, dirname, join
 
 
-basedir = abspath(dirname(__file__))
+basedir = abspath(dirname(__file__))  # pylint: disable=invalid-name
 
 
 """Settings module for test app."""
