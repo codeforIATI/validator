@@ -41,6 +41,7 @@ To deploy::
     heroku config:set FLASK_DEBUG=0
     heroku config:set SECRET_KEY="$(openssl rand -base64 64)"
     heroku addons:create heroku-postgresql
+    heroku labs:enable runtime-dyno-metadata
 
     git push heroku master
 

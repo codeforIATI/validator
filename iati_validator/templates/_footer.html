@@ -6,5 +6,8 @@
       <a href="https://github.com/treadsoft/iati-validator/issues">report a bug</a>
     </p>
     <p>Built using <a href="https://iatikit.readthedocs.io">iatikit</a>.</p>
+    {% if git_sha -%}
+    <p>Version: <a href="https://github.com/treadsoft/iati-validator/tree/{{ git_sha }}">{{ git_sha|truncate(8, true, '') }}</a></p>
+    {%- endif %}
   </div>
 </footer>

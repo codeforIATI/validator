@@ -1,4 +1,6 @@
 """The app module, containing the app factory function."""
+from os import environ
+
 from flask import Flask, render_template
 
 from . import commands, public
@@ -50,6 +52,11 @@ def register_template_filters(app):
         if count == 1:
             return singular if singular else word
         return plural if plural else word + 's'
+
+    @app.context_processor
+    def inject_git_sha():  # pylint: disable=unused-variable
+        """Add git_sha to template variables."""
+        return dict(git_sha=environ.get('HEROKU_SLUG_COMMIT'))
 
     app.jinja_env.filters['commify'] = commify
     app.jinja_env.filters['pluralise'] = pluralise
