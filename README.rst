@@ -3,15 +3,15 @@ Unofficial IATI Validator
 
 Validate IATI XML files.
 
-.. image:: https://travis-ci.org/treadsoft/iati-validator.svg?branch=master
-    :target: https://travis-ci.org/treadsoft/iati-validator
+.. image:: https://travis-ci.org/andylolz/iati-validator.svg?branch=master
+    :target: https://travis-ci.org/andylolz/iati-validator
 
 Quickstart
 ----------
 
 Run the following commands to bootstrap your environment ::
 
-    git clone https://github.com/treadsoft/iati-validator
+    git clone https://github.com/andylolz/iati-validator
     cd iati_validator
     pip install -r requirements/dev.txt
     cp .env.example .env
