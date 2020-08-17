@@ -13,8 +13,6 @@ install:
 before_script:
 - npm run lint
 - npm run build
-- flask lint
-script: pytest tests
 deploy:
   provider: heroku
   api_key:
