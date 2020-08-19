@@ -130,7 +130,7 @@ class ValidationError(db.Model):
         """Constructs a validation error."""
         self.id = str(uuid.uuid4())  # pylint: disable=invalid-name
         self.error_type = error_type
-        self.summary = iatikit_error.summary
+        self.summary = iatikit_error.summary[:200]
         self.details = iatikit_error.details
         self.line = iatikit_error.line
         self.path = iatikit_error.path
