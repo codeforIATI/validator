@@ -129,11 +129,11 @@ class ValidationError(db.Model):
     def __init__(self, error_type, iatikit_error, occurrences, supplied_data):
         """Constructs a validation error."""
         self.id = str(uuid.uuid4())  # pylint: disable=invalid-name
-        self.error_type = error_type
+        self.error_type = error_type[:50]
         self.summary = iatikit_error.summary[:200]
-        self.details = iatikit_error.details
+        self.details = iatikit_error.details[:1000]
         self.line = iatikit_error.line
-        self.path = iatikit_error.path
-        self.url = iatikit_error.url
+        self.path = iatikit_error.path[:200]
+        self.url = iatikit_error.url[:200]
         self.occurrences = occurrences
         self.supplied_data = supplied_data
