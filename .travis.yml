@@ -1,4 +1,9 @@
 # Config file for automatic testing at travis-ci.org
+language: python
+python:
+- 3.7
+script:
+- echo 'nothing to do.' > /dev/null
 deploy:
   provider: heroku
   api_key:
