@@ -37,5 +37,5 @@ jobs:
           branch: refresh-standard
           delete-branch: true
           title: Refresh standard
-          body: Pull in latest changes to the standard (e.g. non-embedded codelist updates), sent from [this GitHub Action build](https://github.com/codeforIATI/iati-validator/actions/runs/${{ github.run_id }}).
+          body: Pull in latest changes to the standard (e.g. non-embedded codelist updates), sent from [this GitHub Action build](https://github.com/codeforIATI/validator/actions/runs/${{ github.run_id }}).
           reviewers: andylolz

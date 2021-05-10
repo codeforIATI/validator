@@ -2,12 +2,12 @@
   <div class="container">
     <p>
       Made by <a href="https://twitter.com/codeforiati">@codeforiati</a> |
-      <a href="https://github.com/codeforiati/iati-validator">source code</a> |
-      <a href="https://github.com/codeforiati/iati-validator/issues">report a bug</a>
+      <a href="https://github.com/codeforiati/validator">source code</a> |
+      <a href="https://github.com/codeforiati/validator/issues">report a bug</a>
     </p>
     <p>Built using <a href="https://iatikit.readthedocs.io">iatikit</a>.</p>
     {% if git_sha -%}
-    <p>Version: <a href="https://github.com/codeforiati/iati-validator/tree/{{ git_sha }}">{{ git_sha|truncate(8, true, '') }}</a></p>
+    <p>Version: <a href="https://github.com/codeforiati/validator/tree/{{ git_sha }}">{{ git_sha|truncate(8, true, '') }}</a></p>
     {%- endif %}
   </div>
 </footer>

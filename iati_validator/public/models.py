@@ -63,7 +63,7 @@ class SuppliedData(db.Model):
             self.source_url = source_url
 
             request_kwargs = {
-                'headers': {'User-Agent': 'IATI Validator'},
+                'headers': {'User-Agent': 'Code for IATI Validator'},
                 'stream': True,
                 'verify': False,
             }

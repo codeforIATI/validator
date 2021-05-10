@@ -1,5 +1,5 @@
-Unofficial IATI Validator
-=========================
+Code for IATI Validator
+=======================
 
 Validate IATI XML files.
 
@@ -8,7 +8,7 @@ Quickstart
 
 Run the following commands to bootstrap your environment ::
 
-    git clone https://github.com/codeforIATI/iati-validator
+    git clone https://github.com/codeforIATI/validator
     cd iati_validator
     pip install -r requirements/dev.txt
     cp .env.example .env
