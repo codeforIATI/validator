@@ -1,0 +1,45 @@
+name: Refresh standard
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - uses: actions/cache@v2
+        name: Cache dependencies
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python refresh_standard.py
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          path: codelist_repo
+          token: ${{ secrets.TOKEN }}
+          commit-message: ${{ matrix.importer }} update
+          committer: CodeforIATI bot <57559326+codeforIATIbot@users.noreply.github.com>
+          author: CodeforIATI bot <57559326+codeforIATIbot@users.noreply.github.com>
+          branch: refresh-standard
+          delete-branch: true
+          title: Refresh standard
+          body: Pull in latest changes to the standard (e.g. non-embedded codelist updates), sent from [this GitHub Action build](https://github.com/codeforIATI/iati-validator/actions/runs/${{ github.run_id }}).
+          reviewers: andylolz
