@@ -110,12 +110,8 @@
 
     {% if data.source_url %}
     <p>Dataset badge:<br>
-      <a href="{{ url_for('public.badge', url=data.source_url) }}">
-        {% if success %}
-          <img src="{{ url_for('static', filename='badges/passing.svg') }}" />
-        {% else %}
-          <img src="{{ url_for('static', filename='badges/failing.svg') }}" />
-        {% endif %}
+      <a href="{{ url_for('public.home', url=data.source_url) }}">
+        <img src="{{ url_for('public.badge', url=data.source_url) }}" />
       </a>
     </p>
     {% endif %}
