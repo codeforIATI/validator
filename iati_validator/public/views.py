@@ -20,20 +20,23 @@ blueprint = Blueprint('public', __name__,  # pylint: disable=invalid-name
 @blueprint.route('/')
 def home():
     """Show the home page."""
+    form_data = request.args
+    source_url = form_data.get('url')
+    if source_url:
+        supplied_data = SuppliedData(
+            source_url, None, None, 'url_form')
+        db.session.add(supplied_data)
+        db.session.commit()
+        return redirect(url_for('public.validate', uuid=supplied_data.id))
     return render_template('public/home.html')
 
 
-@blueprint.route('/upload/', methods=['GET', 'POST'])
+@blueprint.route('/upload/', methods=['POST'])
 def upload():
     """Upload a dataset for validation."""
-    if request.method == 'POST':
-        form_data = request.form
-    else:
-        form_data = request.args
-    source_url = form_data.get('url')
     original_file = request.files.get('file')
-    raw_text = form_data.get('paste')
-    form_name = None
+    raw_text = request.form.get('paste')
+    source_url = request.form.get('url')
 
     if source_url:
         form_name = 'url_form'
