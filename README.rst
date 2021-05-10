@@ -34,13 +34,14 @@ To deploy::
     heroku buildpacks:add heroku/nodejs
     heroku buildpacks:add heroku/python
 
+    heroku config:set NODE_ENV=production
     heroku config:set FLASK_ENV=production
     heroku config:set FLASK_DEBUG=0
     heroku config:set SECRET_KEY="$(openssl rand -base64 64)"
     heroku addons:create heroku-postgresql
     heroku labs:enable runtime-dyno-metadata
 
-    git push heroku master
+    git push heroku main
 
 Shell
 -----
