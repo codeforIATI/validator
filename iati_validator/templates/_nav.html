@@ -1,13 +1,13 @@
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
+  <div class="collapse bg-light" id="navbarHeader">
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
+          <h4>About</h4>
           <p class="text-muted">Validates an <a href="https://iatistandard.org/">IATI</a> dataset against the relevant <a href="https://github.com/IATI/IATI-Schemas">IATI Schema</a>. Also performs codelist checks, and provides a validation badging service. Built using <a href="https://iatikit.readthedocs.io">iatikit</a>.</p>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Links</h4>
+          <h4>Links</h4>
           <ul class="list-unstyled">
             <li><a href="https://github.com/codeforiati/validator">Source code</a></li>
             <li><a href="https://github.com/codeforiati/validator/issues">Report a bug</a></li>
@@ -17,11 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
+  <div class="navbar navbar-light bg-light shadow-sm">
     <div class="container d-flex justify-content-between">
-      <a href="{{ url_for('public.home') }}" class="navbar-brand d-flex align-items-center">
-        <i class="fa fa-check-square-o fa-fw" aria-hidden="true"></i><strong>Code for IATI Validator</strong>
-      </a>
+      <a href="https://codeforiati.org" class="navbar-brand d-flex align-items-center"><img width="100px" src="{{ url_for('static', filename='img/logo.png') }}" title="A project of Code for IATI"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

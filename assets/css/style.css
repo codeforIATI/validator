@@ -14,14 +14,6 @@ footer p {
   margin-bottom: .25rem;
 }
 
-header a {
-  color: #fff;
-}
-
-header a:hover {
-  color: #fff;
-}
-
 .highlight pre {
   white-space: pre-wrap;
   white-space: -pre-wrap;
