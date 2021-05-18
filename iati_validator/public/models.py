@@ -10,6 +10,7 @@ import requests
 from werkzeug.utils import secure_filename
 from flask import current_app
 
+from .helpers import trim
 from ..extensions import db
 
 
@@ -129,11 +130,11 @@ class ValidationError(db.Model):
     def __init__(self, error_type, iatikit_error, occurrences, supplied_data):
         """Constructs a validation error."""
         self.id = str(uuid.uuid4())  # pylint: disable=invalid-name
-        self.error_type = error_type[:50]
-        self.summary = iatikit_error.summary[:200]
-        self.details = iatikit_error.details[:1000]
+        self.error_type = trim(error_type, 50)
+        self.summary = trim(iatikit_error.summary, 200)
+        self.details = trim(iatikit_error.details, 1000)
         self.line = iatikit_error.line
-        self.path = iatikit_error.path[:200]
-        self.url = iatikit_error.url[:200]
+        self.path = trim(iatikit_error.path, 200)
+        self.url = trim(iatikit_error.url, 200)
         self.occurrences = occurrences
         self.supplied_data = supplied_data
