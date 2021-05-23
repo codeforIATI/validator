@@ -24,7 +24,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Install dependencies
+      - name: Run refresh standard script
         run: |
           python refresh_standard.py
       - name: Create Pull Request
