@@ -31,7 +31,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.TOKEN }}
-          commit-message: ${{ matrix.importer }} update
+          commit-message: Standard update
           committer: CodeforIATI bot <57559326+codeforIATIbot@users.noreply.github.com>
           author: CodeforIATI bot <57559326+codeforIATIbot@users.noreply.github.com>
           branch: refresh-standard
